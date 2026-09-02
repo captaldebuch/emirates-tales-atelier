@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier d'écriture IA : Emirates Tales</title>
+    <style>
+        :root {
+            --sorbonne-blue: #0c1c44;
+            --sorbonne-red: #9e1b34;
+            --bg-color: #fdfdfc;
+            --surface-color: #f9f9f8;
+            --text-color: #2b2b2b;
+            --text-muted: #5a5a5a;
+            --border-color: #eaeaea;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+        }
+
+        .institutional-header {
+            background-color: var(--sorbonne-blue);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            border-bottom: 4px solid var(--sorbonne-red);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .institutional-header .logos {
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .institutional-header .colloquium-info {
+            text-align: right;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        header {
+            background-color: var(--surface-color);
+            padding: 4.5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--sorbonne-blue);
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        .tagline {
+            color: var(--sorbonne-red);
+            font-size: 1.3rem;
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-title {
+            color: var(--sorbonne-blue);
+            border-bottom: 1px solid var(--sorbonne-red);
+            padding-bottom: 0.5rem;
+            margin-top: 3.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: normal;
+        }
+
+        .animators-section {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 2px;
+            margin-bottom: 3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .animators-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .animator {
+            flex: 1 1 200px;
+        }
+
+        .animator strong {
+            display: block;
+            color: var(--sorbonne-blue);
+            font-size: 1.1rem;
+        }
+
+        .animator span {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .concept-card {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 3rem;
+            border-left: 4px solid var(--sorbonne-blue);
+            text-align: justify;
+        }
+        
+        .timeline-banner {
+            display: flex;
+            justify-content: space-between;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            text-align: center;
+        }
+        
+        .timeline-step {
+            flex: 1;
+            padding: 0 1rem;
+        }
+        
+        .timeline-step:not(:last-child) {
+            border-right: 1px dashed var(--border-color);
+        }
+        
+        .timeline-step .duration {
+            font-size: 1.5rem;
+            color: var(--sorbonne-red);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .rounds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .round-card {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--sorbonne-blue);
+            padding: 2.5rem 2rem;
+            position: relative;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .round-card.special {
+            border-top: 3px solid var(--sorbonne-red);
+            background-color: #fff9fa;
+        }
+
+        .round-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .round-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--sorbonne-red);
+            color: white;
+            width: auto;
+            min-width: 60px;
+            padding: 0 15px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            border-radius: 20px;
+        }
+        
+        .special .round-number {
+            background-color: var(--sorbonne-blue);
+        }
+
+        .round-card h3 {
+            color: var(--sorbonne-blue);
+            margin-top: 0;
+            font-size: 1.3rem;
+            font-weight: normal;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .round-card p {
+            text-align: justify;
+            margin-bottom: 1rem;
+        }
+
+        .round-card ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0;
+            color: var(--text-color);
+        }
+
+        .round-card li {
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+        
+        .round-card li strong {
+            color: var(--sorbonne-blue);
+        }
+
+        .logistics-section {
+            background-color: var(--surface-color);
+            padding: 3rem;
+            margin-top: 4rem;
+            border: 1px solid var(--border-color);
+            text-align: justify;
+        }
+
+        .quote {
+            font-style: italic;
+            border-left: 2px solid var(--sorbonne-red);
+            padding-left: 1.5rem;
+            margin: 2.5rem 0;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="institutional-header">
+        <div class="logos">
+            <img src="https://vepimg.b8cdn.com/uploads/vjfnew/5810/uploads/vjf/content/misc/1628243948logo.png" alt="Sorbonne Université Abu Dhabi" style="height: 50px; margin-right: 15px; filter: brightness(0) invert(1);">
+            <span>SCAI | EFEIA</span>
+        </div>
+        <div class="colloquium-info">
+            Colloque international : écrire et faire écrire avec l'intelligence artificielle<br>
+            29-30 octobre 2026
+        </div>
+    </div>
+
+    <header>
+        <h1>Emirates Tales : écriture créative et IA</h1>
+        <p class="tagline">Une expérience de co-création humain-machine</p>
+    </header>
+
+    <div class="container">
+
+        <div class="animators-section">
+            <h3 style="color: var(--sorbonne-red); margin-top: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; font-family: 'Helvetica Neue', sans-serif;">Équipe d'animation</h3>
+            <div class="animators-list">
+                <div class="animator">
+                    <strong>Dr Xavier Fresquet</strong>
+                    <span>Head - Sorbonne Cluster for Artificial Intelligence (SCAI)</span>
+                </div>
+                <div class="animator">
+                    <strong>Dr Georgia Constantinou</strong>
+                    <span>Assistant Professor - French as a Foreign Language</span>
+                </div>
+                <div class="animator">
+                    <strong>Karine Germoni</strong>
+                    <span>Co-animatrice de l'atelier</span>
+                </div>
+                <div class="animator">
+                    <strong>Hajiba Ankach</strong>
+                    <span>Co-animatrice de l'atelier</span>
+                </div>
+                <div class="animator">
+                    <strong>Fatima-Zahra Bouthiba</strong>
+                    <span>Co-animatrice de l'atelier</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept-card">
+            <h2 style="color: var(--sorbonne-blue); margin-top: 0; font-weight: normal; font-size: 1.8rem;">Le projet pédagogique</h2>
+            <p>Cet atelier collaboratif propose une expérience inédite d'écriture à quarante mains. Dans ce cadre, l'intelligence artificielle générative n'est pas envisagée comme un simple outil d'exécution, mais comme un véritable co-auteur que les participants doivent apprivoiser et guider.</p>
+            <p>L'objectif didactique est d'amener les participants à maîtriser l'ingénierie de prompt, en formulant des contraintes extrêmement précises (linguistiques, structurelles, documentaires) pour orienter l'IA dans la création d'un récit culturellement ancré aux Émirats Arabes Unis.</p>
+            <p><strong>La règle d'or de la lisibilité :</strong> Les participants ne disposant que de 3 minutes pour s'imprégner du texte de leur voisin lors des rotations, la longueur totale du récit final ne devra pas excéder <strong>1,5 à 2 pages (environ 600 à 800 mots)</strong>. La concision sera donc une exigence de chaque instant face à la machine.</p>
+            <div class="quote">
+                « La machine n'est pas un substitut à la création littéraire, elle en est le partenaire. L'enjeu didactique ne réside plus dans le choix du mot juste, mais dans l'élaboration de contraintes rigoureuses permettant de stimuler l'originalité de l'intelligence artificielle. »
+            </div>
+        </div>
+
+        <h2 class="section-title">Déroulement et cadre temporel (2 Heures)</h2>
+        
+        <div class="timeline-banner">
+            <div class="timeline-step">
+                <span class="duration">30 min</span>
+                Mise en place &<br>prise en main
+            </div>
+            <div class="timeline-step">
+                <span class="duration">4 x 15 min</span>
+                Création littéraire<br>et ingénierie de prompt
+            </div>
+            <div class="timeline-step">
+                <span class="duration">15 min</span>
+                Humanisation<br>éditoriale
+            </div>
+            <div class="timeline-step">
+                <span class="duration">15 min</span>
+                Vibe coding &<br>Publication
+            </div>
+        </div>
+
+        <div class="rounds-grid">
+            
+            <!-- Intro -->
+            <div class="round-card special" style="grid-column: 1 / -1;">
+                <div class="round-number">30 MIN</div>
+                <h3>1. Accueil et prise en main des outils</h3>
+                <ul>
+                    <li><strong>Installation :</strong> connexion aux environnements de travail (Google Docs partagés via le registre).</li>
+                    <li><strong>Initiation :</strong> présentation des différents LLM disponibles (ChatGPT, Claude, Gemini) et de leurs spécificités stylistiques.</li>
+                    <li><strong>Espace de confiance :</strong> familiarisation avec l'interface et tests de prompts "d'échauffement".</li>
+                </ul>
+            </div>
+
+            <!-- Tâche 1 -->
+            <div class="round-card">
+                <div class="round-number">15 MIN</div>
+                <h3>2. L'atmosphère et les personnages</h3>
+                <p>Mettre en place le décor et y ancrer les protagonistes sans précipiter l'action.</p>
+                <ul>
+                    <li><strong>Stimuler les sens :</strong> imposer à l'IA la description d'un paysage émirati en y incluant une texture, un son et une odeur spécifique.</li>
+                    <li><strong>Contourner les biais :</strong> interdire explicitement l'usage des clichés génériques du LLM (mots proscrits : chaleur, sable, luxe, gratte-ciel).</li>
+                    <li><strong>Montrer sans dire (Show, don't tell) :</strong> incarner un personnage et son métier local par l'action, sans jamais nommer son émotion.</li>
+                    <li><strong>Calibrage strict :</strong> la scène générée ne doit pas excéder <strong>200 mots</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- Tâche 2 -->
+            <div class="round-card">
+                <div class="round-number">15 MIN</div>
+                <h3>3. L'ancrage factuel et la recherche</h3>
+                <p>Transformer l'IA de générateur de fiction en véritable assistant de recherche documentaire.</p>
+                <ul>
+                    <li><strong>Explorer le web :</strong> forcer le modèle à chercher des informations réelles sur internet (donnée géographique, fait historique méconnu des EAU, spécificité biologique locale).</li>
+                    <li><strong>Vérifier :</strong> croiser brièvement l'information pour s'assurer de sa véracité (éviter les hallucinations).</li>
+                    <li><strong>Intégrer organiquement :</strong> relier cette trouvaille factuelle à l'intrigue en cours de manière fluide (par une découverte ou un dialogue), en refusant le ton encyclopédique.</li>
+                    <li><strong>Calibrage strict :</strong> l'ajout narratif ne doit pas dépasser <strong>150 mots</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- Tâche 3 -->
+            <div class="round-card">
+                <div class="round-number">15 MIN</div>
+                <h3>4. L'élément perturbateur et la tension</h3>
+                <p>Exploiter le contexte créé par le binôme précédent pour amorcer un conflit.</p>
+                <ul>
+                    <li><strong>S'imprégner :</strong> lire attentivement avec un œil critique le travail qui précède.</li>
+                    <li><strong>Briser l'équilibre :</strong> utiliser le fait documentaire de l'étape 3 comme déclencheur d'une péripétie.</li>
+                    <li><strong>Maîtriser le rythme :</strong> exiger de l'IA une syntaxe spécifique (phrases très courtes, incisives) pour traduire l'urgence.</li>
+                    <li><strong>Complexifier les échanges :</strong> forcer la génération d'un dialogue bâti sur le non-dit (dissonance entre parole et pensée).</li>
+                    <li><strong>Calibrage strict :</strong> cette scène d'action ne doit pas excéder <strong>150 mots</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- Tâche 4 -->
+            <div class="round-card">
+                <div class="round-number">15 MIN</div>
+                <h3>5. Le dénouement</h3>
+                <p>Boucler l'arc narratif par une chute (twist) cohérente et percutante.</p>
+                <ul>
+                    <li><strong>Prendre de la hauteur :</strong> relire l'intégralité du récit pour en saisir l'essence.</li>
+                    <li><strong>Briser les conventions :</strong> proscrire formellement les résolutions faciles (refus du <em>happy end</em> stéréotypé ou du réveil après un rêve).</li>
+                    <li><strong>Contraindre la forme :</strong> imposer à la machine une longueur de texte au mot près (<strong>très exactement 100 mots</strong>), forçant ainsi une concision extrême pour la conclusion.</li>
+                </ul>
+            </div>
+
+            <!-- Tâche 5 -->
+            <div class="round-card special">
+                <div class="round-number">15 MIN</div>
+                <h3>6. L'humanisation éditoriale</h3>
+                <p>Quitter la posture de prompt-ingénieur pour endosser celle de l'éditeur littéraire.</p>
+                <ul>
+                    <li><strong>Relire d'un œil humain :</strong> parcourir l'œuvre globale pour y repérer les maladresses stylistiques de la machine.</li>
+                    <li><strong>Traquer l'incohérence :</strong> corriger manuellement les failles logiques (changements de noms, oublis de contexte).</li>
+                    <li><strong>Insuffler de l'âme :</strong> retravailler les tournures trop algorithmiques pour y ramener une véritable sensibilité humaine.</li>
+                    <li><strong>Titraille :</strong> attribuer un titre définitif et une phrase d'accroche au récit.</li>
+                </ul>
+            </div>
+            
+            <!-- Tâche 6 -->
+            <div class="round-card special">
+                <div class="round-number">15 MIN</div>
+                <h3>7. Vibe coding et mise en ligne</h3>
+                <p>Célébrer la fin de l'atelier en publiant les œuvres en temps réel.</p>
+                <ul>
+                    <li><strong>Centraliser :</strong> rassemblement des 40 histoires finalisées (Emirates Tales).</li>
+                    <li><strong>Coder par l'IA :</strong> démonstration en direct de <em>vibe coding</em> (avec un outil comme Cursor ou Claude) pour générer instantanément l'interface web du recueil.</li>
+                    <li><strong>Exposer :</strong> publication live du site vitrine et célébration de l'intelligence collective humain-machine.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="logistics-section">
+            <h2 style="color: var(--sorbonne-blue); margin-top: 0; font-weight: normal; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; font-size: 1.8rem;">Organisation logistique</h2>
+            <p>Pour assurer le bon déroulement technique de la session avec 40 participants :</p>
+            <ul style="margin-top: 1.5rem; line-height: 1.8;">
+                <li><strong>En amont :</strong> Diffusion d'un formulaire (Google Form) pour évaluer les prérequis techniques des participants et s'assurer de leur accès aux outils d'IA (ChatGPT, Claude, Gemini, etc.).</li>
+                <li><strong>Espace de travail numérique :</strong> Préparation de 40 documents collaboratifs (Google Docs) configurés en accès ouvert ("Tous les utilisateurs disposant du lien").</li>
+                <li><strong>Tableau de bord par étapes :</strong> Un registre central (Google Sheets) est organisé avec <strong>un onglet par cycle d'écriture</strong> (Étape 1, Étape 2...). À chaque rotation, le participant clique sur son nouvel onglet pour trouver instantanément le lien du document qu'il doit continuer.</li>
+                <li><strong>Déroulement :</strong> 
+                    <ol style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Accès au tableau de bord via un QR Code projeté en salle.</li>
+                        <li>Pour l'Étape 1, le participant clique sur le lien face à son nom dans le premier onglet.</li>
+                        <li>À chaque changement de place, il passe à l'onglet suivant du tableur pour découvrir son nouveau document.</li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Sorbonne Université Abu Dhabi - Colloque international EFEIA
+    </footer>
+
+</body>
+</html>
